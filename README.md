@@ -84,9 +84,75 @@ Transformačná fáza zahŕňa vytvorenie dimenzionálneho modelu v schéme CAT_
 - Mapovanie staging tabuliek na dimenzionálne tabuľky
 - Výpočet metrík vo faktovej tabuľke (napr. FinalPrice)
 
-#### Dimenzia dim_date
-Časová dimenzia `dim_date` je navrhnutá na uchovávanie a analýzu časových aspektov objednávok. Obsahuje odvodené atribúty ako deň v týždni, mesiac, rok a štvrťrok. Z hľadiska SCD je klasifikovaná ako Typ 0, keďže časové údaje sú nemenné. Najprv vytvoríme štruktúru tabuľky s potrebnými stĺpcami:
+### Dimenzie a ich SCD typy:
 
+#### 1. dim_shippers (SCD Typ 1)
+Dimenzia prepravcov - aktualizuje sa pri zmene údajov prepravcu
+```sql
+CREATE TABLE dim_shippers (
+  dim_shipperID INTEGER PRIMARY KEY,
+  ShipperName VARCHAR(25),
+  Phone VARCHAR(15)
+);
+```
+#### 2. dim_customers (SCD Typ 2)
+Dimenzia zákazníkov - sleduje historické zmeny v údajoch zákazníkov
+```sql
+CREATE TABLE dim_customers (
+  dim_customerID INTEGER PRIMARY KEY,
+  CustomerName VARCHAR(50),
+  ContactName VARCHAR(50),
+  Address VARCHAR(50),
+  City VARCHAR(20),
+  PostalCode VARCHAR(10),
+  Country VARCHAR(15)
+);
+```
+#### 3. dim_employees (SCD Typ 1)
+Dimenzia zamestnancov - udržiava aktuálne informácie o zamestnancoch
+```sql
+CREATE TABLE dim_employees (
+  dim_employeeID INTEGER PRIMARY KEY,
+  LastName VARCHAR(15),
+  FirstName VARCHAR(15),
+  BirthDate DATETIME
+);
+```
+#### 4. dim_categories (SCD Typ 1)
+Dimenzia kategórií - obsahuje aktuálne kategórie produktov
+```sql
+CREATE TABLE dim_categories (
+  dim_categoryID INTEGER PRIMARY KEY,
+  CategoryName VARCHAR(25),
+  Description VARCHAR(255)
+);
+```
+#### 5. dim_suppliers (SCD Typ 2)
+Dimenzia dodávateľov - sleduje zmeny v údajoch dodávateľov v čase
+```sql
+CREATE TABLE dim_suppliers (
+  dim_supplierID INTEGER PRIMARY KEY,
+  SupplierName VARCHAR(50),
+  ContactName VARCHAR(50),
+  Address VARCHAR(50),
+  City VARCHAR(20),
+  PostalCode VARCHAR(10),
+  Country VARCHAR(15),
+  Phone VARCHAR(15)
+);
+```
+#### 6. dim_products (SCD Typ 2)
+Dimenzia produktov - zachováva históriu zmien v cenách a detailoch produktov
+```sql
+CREATE TABLE dim_products (
+  dim_productID INTEGER PRIMARY KEY,
+  ProductName VARCHAR(50),
+  Unit VARCHAR(25),
+  Price DECIMAL(10,2)
+);
+```
+#### 7. dim_date (SCD Typ 0)
+Časová dimenzia pre dátum - nemenné časové údaje
 ```sql
 CREATE TABLE dim_date (
   dim_dateID INTEGER PRIMARY KEY,
@@ -101,7 +167,18 @@ CREATE TABLE dim_date (
   quarter INTEGER
 );
 ```
-Následne naplníme dimenziu odvodenými časovými údajmi z objednávok:
+#### 8. dim_time (SCD Typ 0)
+Časová dimenzia pre hodiny - nemenné časové údaje
+```sql
+CREATE TABLE dim_time (
+  dim_timeID INTEGER PRIMARY KEY,
+  timestamp TIME,
+  hour INTEGER,
+  ampm VARCHAR(2)
+);
+```
+
+Následne naplníme dimenzie údajmi zo staging tabuliek. Príklad pre dimenziu dim_date:
 
 ```sql
 INSERT INTO dim_date 
