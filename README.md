@@ -25,7 +25,7 @@ Zdrojové dáta pochádzajú z Northwind databázy, ktorá obsahuje osem hlavný
 Surové dáta sú usporiadané v relačnom modeli, ktorý je znázornený na **entitno-relačnom diagrame (ERD)**:
 
 <p align="center">
-  <img src="https://github.com/ErikTitan/Northwind-ETL/blob/main/erd_schema.png" alt="ERD Schema">
+  <img src="https://github.com/ErikTitan/Northwind-ETL/blob/master/erd_schema.png" alt="ERD Schema">
   <br>
   <em>Obrázok 1 Entitno-relačná schéma Northwind databázy</em>
 </p>
@@ -50,7 +50,7 @@ Faktová tabuľka `fact_orderdetails` obsahuje kľúčové metriky ako:
 - Prepojenia na všetky relevantné dimenzie
 
 <p align="center">
-  <img src="https://github.com/ErikTitan/Northwind-ETL/blob/main/star_schema.png" alt="Star Schema">
+  <img src="https://github.com/ErikTitan/Northwind-ETL/blob/master/star_schema.sql" alt="Star Schema">
   <br>
   <em>Obrázok 2: Hviezdicová schéma Northwind dátového skladu</em>
 </p>
@@ -215,7 +215,7 @@ Dashboard kombinuje osem kľúčových vizualizácií:
    - Mesačné tržby
 
 <p align="center">
-  <img src="https://github.com/ErikTitan/Northwind-ETL/blob/main/dashboard.png" alt="Dashboard">
+  <img src="https://github.com/ErikTitan/Northwind-ETL/blob/master/dashboard.png" alt="Dashboard">
   <br>
   <em>Obrázok 3 Dashboard Northwind databázy</em>
 </p>
