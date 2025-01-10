@@ -50,7 +50,7 @@ Faktová tabuľka `fact_orderdetails` obsahuje kľúčové metriky ako:
 - Prepojenia na všetky relevantné dimenzie
 
 <p align="center">
-  <img src="https://github.com/ErikTitan/Northwind-ETL/blob/master/star_schema.sql" alt="Star Schema">
+  <img src="https://github.com/ErikTitan/Northwind-ETL/blob/master/star_schema.png" alt="Star Schema">
   <br>
   <em>Obrázok 2: Hviezdicová schéma Northwind dátového skladu</em>
 </p>
